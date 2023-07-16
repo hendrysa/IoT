@@ -40,5 +40,6 @@ try:
     s = Sensors()
     while(True):
         s.get_data()
+        sleep(1)
 except:
     rpi_gpio.cleanup()
