@@ -34,7 +34,7 @@ class Sensors:
         if(result == -1):
             print("Gagal mendapatkan data dari sensor")
         else:
-            print(f"Tinggi badan : {sensors_height - result}")
+            print(f"Tinggi badan : {sensors_height - result} Cm")
 
 try:
     s = Sensors()
