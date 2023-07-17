@@ -22,11 +22,13 @@ class Sensors:
         self.gpio.output(self.trigger, False)
 
     def __echo__(self):
-        time_start = int(time())
+        time_start = time()
+        timeout = int(time())
         while(self.gpio.input(self.echo) != 1):
-            if(int(time()) - time_start >= 5):
+            time_start = time()
+            if(int(time()) - timeout >= 6):
                 return -1
-        return ((int(time()) - time_start) * 34320) / 2
+        return ((time() - time_start) * 34320) / 2) * 100
     
     def get_data(self):
         self.__trigger__()
