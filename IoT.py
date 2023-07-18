@@ -24,19 +24,20 @@ class Sensors:
     def __echo__(self):
         time_start = time()
         timeout = int(time())
-        while(self.gpio.input(self.echo) != 1):
+
+        while(self.gpio.input(self.echo) == 0 and int(time()) - timeout < 3):
             time_start = time()
-            if(int(time()) - timeout >= 6):
-                return -1
-        return ((time() - time_start) * 34320) / 2) * 100
+        timeout = int(time())
+
+        while(self.gpio.input(self.echo) == 0 and int(time()) - timeout < 3):
+            time_stop = time()
+
+        return ((time_stop - time_start) * 34320) / 2
     
     def get_data(self):
         self.__trigger__()
         result = self.__echo__()
-        if(result == -1):
-            print("Gagal mendapatkan data dari sensor")
-        else:
-            print(f"Tinggi badan : {sensors_height - result} Cm")
+        print(f"Tinggi badan : {sensors_height - result} Cm")
 
 try:
     s = Sensors()
